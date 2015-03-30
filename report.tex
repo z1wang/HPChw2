@@ -1,0 +1,110 @@
+%%% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{tgtermes}
+
+\usepackage[
+pdftitle={Math Assignment}, 
+pdfauthor={Zi Wang, New York University},
+colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=true,
+bookmarksopenlevel=2]{hyperref}
+\usepackage{amsmath,amssymb,amsthm,textcomp}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{total={210mm,297mm},
+left=25mm,right=25mm,%
+bindingoffset=0mm, top=20mm,bottom=20mm}
+
+
+\linespread{1.3}
+
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+% custom theorems if needed
+\newtheoremstyle{mytheor}
+    {1ex}{1ex}{\normalfont}{0pt}{\scshape}{.}{1ex}
+    {{\thmname{#1 }}{\thmnumber{#2}}{\thmnote{ (#3)}}}
+
+\theoremstyle{mytheor}
+\newtheorem{Proof}{proofnition}
+
+\theoremstyle{mytheor}
+\newtheorem{solu}{Solution}
+
+% my own titles
+\makeatletter
+\renewcommand{\maketitle}{
+\begin{center}
+\vspace{2ex}
+{\huge \textsc{\@title}}
+\vspace{1ex}
+\\
+\linia\\
+\@author \hfill \@date
+\vspace{4ex}
+\end{center}
+}
+\makeatother
+%%%
+
+% custom footers and headers
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{Assignment \textnumero{} 1}
+\cfoot{}
+\rfoot{Page \thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%
+
+%%%----------%%%----------%%%----------%%%----------%%%
+
+\begin{document}
+
+\title{Assigment 1}
+
+\author{Zi Wang}
+
+\date{03/30/2015}
+
+\maketitle
+
+\section{Problem 2}
+Below are some results running on Stampede: NP is the number of cores, NN is the number of numbers created per processor and T is the time used per processor.
+
+NP = 128, NN = 1250000, T $\approx$ 1.05;
+
+NP = 128, NN = 2500000, T $\approx$ 1.75;
+
+NP = 128, NN = 5000000, T $\approx$ 3.0;
+
+NP = 256, NN = 675000, T $\approx$ 1.5;
+
+NP = 256, NN = 1250000, T $\approx$ 1.7;
+
+NP = 256, NN = 2500000, T $\approx$ 2.9;
+
+NP = 256, NN = 5000000, T $\approx$ 4.0;
+
+NP = 512, NN = 1250000, T $\approx$ 3.0;
+
+NP = 512, NN = 5000000, T $\approx$ 5.2;
+
+
+\section{Problem 3}
+
+Zhuoran Lyu, Daniel Zhou and I decide to do parallel svm. The idea of parallel happens at the training stage as our goal is to minimize the distance between the points of hyperplane. Thus at the training stage, the source of parallelization could come from partitioning the data into different chunks and each processor takes care of a chunk. They will communicate about their computations to ensure they will eventually arrive at the right answer.
+\end{document}
+
