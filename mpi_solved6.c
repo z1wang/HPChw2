@@ -7,6 +7,11 @@
 * AUTHOER: Blaise Barney 
 * LAST REVISED: 04/13/05
 ******************************************************************************/
+
+
+/*I don't know how to fix it.*/
+
+
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>

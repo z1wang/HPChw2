@@ -11,7 +11,6 @@
 ******************************************************************************/
 
 
-
 /* When running on network, the time will blows up every four or five rounds when using
 MPI_Send and MPI_Recv. The reason for this is because MPI_Send has an internal buffer.
 When the buffer is full, it has to wait MPI_Recv to consume all the data in the buffer
@@ -20,9 +19,11 @@ instead.  */
 
 
 
+
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 #define MSGSIZE 2000
 
 int main (int argc, char *argv[])
@@ -31,7 +32,9 @@ int        numtasks, rank, i, tag=111, dest=1, source=0, count=0;
 char       data[MSGSIZE];
 double     start, end, result;
 MPI_Status status;
-MPI_Request reqs;
+
+
+
 
 MPI_Init(&argc,&argv);
 MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
@@ -52,7 +55,7 @@ if (rank == 0) {
 
   start = MPI_Wtime();
   while (1) {
-    MPI_Isend(data, MSGSIZE, MPI_BYTE, dest, tag, MPI_COMM_WORLD, &reqs);
+    MPI_Send(data, MSGSIZE, MPI_BYTE, dest, tag, MPI_COMM_WORLD);
     count++;
     if (count % 10 == 0) {
       end = MPI_Wtime();
@@ -66,7 +69,7 @@ if (rank == 0) {
 
 if (rank == 1) {
   while (1) {
-    MPI_Irecv(data, MSGSIZE, MPI_BYTE, source, tag, MPI_COMM_WORLD, &reqs);
+    MPI_Recv(data, MSGSIZE, MPI_BYTE, source, tag, MPI_COMM_WORLD, &status);
     /* Do some work  - at least more than the send task */
     result = 0.0;
     for (i=0; i < 1000000; i++) 
@@ -74,7 +77,7 @@ if (rank == 1) {
     }
   }
 
-MPI_Wait(&reqs, &status);
 MPI_Finalize();
 }
+
 
