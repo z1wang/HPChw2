@@ -25,14 +25,17 @@ int main( int argc, char *argv[])
   int i, N;
   int *vec;
   int nprocs;
+  double start, end;
 
   MPI_Init(&argc, &argv);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+  start = MPI_Wtime();
 
   /* Number of random numbers per processor (this should be increased
    * for actual tests or could be passed in through the command line */
   N = 100;
+
 
   vec = calloc(N, sizeof(int));
   /* seed random number generator differently on every core */
@@ -42,6 +45,7 @@ int main( int argc, char *argv[])
   for (i = 0; i < N; ++i) {
     vec[i] = rand();
   }
+
 
 
   /* sort locally */
@@ -130,7 +134,7 @@ int main( int argc, char *argv[])
 
   /* do a local sort */
 
-    qsort(result, mySize, sizeof(int), compare);
+
 
   /* every processor writes its result to a file */
 
@@ -148,6 +152,10 @@ int main( int argc, char *argv[])
     for(i = 0; i < mySize; i++)
       fprintf(fd, " %d ", result[i]);
     fclose(fd);
+
+    qsort(result, mySize, sizeof(int), compare);
+    end = MPI_Wtime();
+    printf("Rank[%d] uses time %f\n", rank, end-start);
 
   /* free allocated memory */
   free(result);
