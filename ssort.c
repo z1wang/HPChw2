@@ -27,6 +27,8 @@ int main( int argc, char *argv[])
   int nprocs;
   double start, end;
 
+  N = atoi(argv[1]);
+
   MPI_Init(&argc, &argv);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
@@ -34,7 +36,6 @@ int main( int argc, char *argv[])
 
   /* Number of random numbers per processor (this should be increased
    * for actual tests or could be passed in through the command line */
-  N = 100;
 
 
   vec = calloc(N, sizeof(int));
