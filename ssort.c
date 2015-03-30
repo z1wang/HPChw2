@@ -5,7 +5,6 @@
 #include <mpi.h>
 #include <stdlib.h>
 #include <math.h>
-#include "util.h"
 
 static int compare(const void *a, const void *b)
 {
@@ -99,7 +98,6 @@ int main( int argc, char *argv[])
 
    int *recCounts = calloc(nprocs, sizeof(int)); // This array stores the number of elements from each processor
 
-   int count = 0;
    index = 0;
    for(i = 0; i < N; i++){
     if(vec[i] <= sp[index]){
@@ -157,6 +155,8 @@ int main( int argc, char *argv[])
   free(sendCounts);
   free(vec);
   free(sp);
+  free(sDisp);
+  free(rDisp);
   if(rank==0)
     free(rBuf);
   free(sample);
